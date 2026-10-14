@@ -45,33 +45,42 @@ def check(root=ROOT):
     for name in required:
         if not (root / name).is_file():
             raise ValueError(f'缺少部署文件: {name}')
-    page = Page()
-    page.feed((root / 'index.html').read_text())
-    if page.lang != 'zh-CN' or page.h1 != 1:
-        raise ValueError('页面语言或主标题数量不正确')
-    if page.canonical != [DOMAIN] or page.og_urls != [DOMAIN]:
-        raise ValueError('canonical 或 Open Graph 域名不一致')
-    for ref in page.references:
-        url = urlsplit(ref)
-        if url.scheme or url.netloc:
-            if url.scheme != 'https' or not url.netloc:
-                raise ValueError(f'不支持的外部链接: {ref}')
-            continue
-        if url.path:
-            local = (root / unquote(url.path).lstrip('/')).resolve()
+    pages = {}
+    for file in [root / 'index.html', *sorted((root / 'docs').rglob('*.html'))]:
+        page = Page()
+        page.feed(file.read_text())
+        expected = DOMAIN + str(file.parent.relative_to(root)).replace('.', '').strip('/')
+        if expected != DOMAIN:
+            expected += '/'
+        if page.lang != 'zh-CN' or page.h1 != 1:
+            raise ValueError(f'{file}: 页面语言或主标题数量不正确')
+        if page.canonical != [expected] or page.og_urls != [expected]:
+            raise ValueError(f'{file}: canonical 或 Open Graph URL 不一致')
+        pages[file.resolve()] = page
+    for file, page in pages.items():
+        for ref in page.references:
+            url = urlsplit(ref)
+            if url.scheme or url.netloc:
+                if url.scheme != 'https' or not url.netloc:
+                    raise ValueError(f'不支持的外部链接: {ref}')
+                continue
+            base = root if url.path.startswith('/') else file.parent
+            local = (base / unquote(url.path).lstrip('/')).resolve() if url.path else file
+            if local.is_dir():
+                local /= 'index.html'
             if not local.is_relative_to(root.resolve()) or not local.is_file():
-                raise ValueError(f'资源缺失或越界: {ref}')
-        elif url.fragment and unquote(url.fragment) not in page.ids:
-            raise ValueError(f'锚点缺失: {ref}')
+                raise ValueError(f'{file}: 资源缺失或越界: {ref}')
+            if url.fragment and (local not in pages or unquote(url.fragment) not in pages[local].ids):
+                raise ValueError(f'{file}: 页面锚点缺失: {ref}')
     if (root / 'CNAME').read_text().strip() != 'brivya.com':
         raise ValueError('CNAME 域名不正确')
     if f'Sitemap: {DOMAIN}sitemap.xml' not in (root / 'robots.txt').read_text():
         raise ValueError('robots sitemap 地址不正确')
     urls = ET.parse(root / 'sitemap.xml').findall('.//{http://www.sitemaps.org/schemas/sitemap/0.9}loc')
-    if [url.text for url in urls] != [DOMAIN]:
-        raise ValueError('sitemap URL 不正确')
+    if {url.text for url in urls} != {page.canonical[0] for page in pages.values()} or len(urls) != len(pages):
+        raise ValueError('sitemap 与全部页面 URL 不一致')
     ET.parse(root / 'assets/favicon.svg')
-    print('PASS: 部署文件、资源、锚点、标题、正式域名与 XML')
+    print(f'PASS: {len(pages)} 个页面、跨页资源与锚点、标题、正式 URL 和 sitemap')
 
 
 if __name__ == '__main__':

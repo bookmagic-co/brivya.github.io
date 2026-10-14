@@ -23,3 +23,9 @@
 本地开发与自动部署配置已完成，部署仓库已确定为公开的 `bookmagic-co/brivya.github.io`。DNS 需要腾讯云后台配置。npm 发布与 OIDC 绑定属于独立任务。
 
 开发与部署的完整执行步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。GitHub Actions 模式以 Pages 设置中的 Custom domain 为准；`CNAME` 文件不代替该设置。
+
+## 官网文档
+
+文档中心 `/docs/` 提供快速开始、架构、安全、SDK、适配器、扩展、Restaurant 示例、版本与贡献说明。编辑 `scripts/docs.py` 中的内容并运行 `python3 scripts/docs.py`，生成已提交的 `docs/**/index.html` 与 sitemap。不要直接编辑生成页；CI 检查生成结果是否一致。
+
+检查器验证所有文档页的内部链接、跨页锚点、canonical URL 和 sitemap 覆盖；构建只复制公开 HTML 和静态资源。首页主要入口跳转到官网文档，源码与实际贡献渠道仍链接 GitHub。

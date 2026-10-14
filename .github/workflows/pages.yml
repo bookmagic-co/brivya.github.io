@@ -24,6 +24,10 @@ jobs:
           node-version: '22'
       - name: Validate static site
         run: python3 scripts/check.py
+      - name: Verify generated documentation
+        run: |
+          python3 scripts/docs.py
+          git diff --exit-code -- docs sitemap.xml
       - name: Validate JavaScript
         run: node --check assets/site.js
       - name: Build public artifact

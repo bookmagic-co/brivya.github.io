@@ -9,11 +9,17 @@ target = ROOT / '_site'
 target.mkdir(exist_ok=True)
 for name in ['index.html', 'CNAME', '.nojekyll', 'robots.txt', 'sitemap.xml']:
     shutil.copy2(ROOT / name, target / name)
-for name in ['style.css', 'site.js', 'favicon.svg']:
+for name in ['style.css', 'docs.css', 'site.js', 'favicon.svg']:
     (target / 'assets').mkdir(exist_ok=True)
     shutil.copy2(ROOT / 'assets' / name, target / 'assets' / name)
 expected = {'index.html', 'CNAME', '.nojekyll', 'robots.txt', 'sitemap.xml',
-            'assets/style.css', 'assets/site.js', 'assets/favicon.svg'}
+            'assets/style.css', 'assets/docs.css', 'assets/site.js', 'assets/favicon.svg'}
+for source in (ROOT / 'docs').rglob('*.html'):
+    relative = source.relative_to(ROOT)
+    output = target / relative
+    output.parent.mkdir(parents=True, exist_ok=True)
+    shutil.copy2(source, output)
+    expected.add(str(relative))
 actual = {str(p.relative_to(target)) for p in target.rglob('*') if p.is_file()}
 if actual != expected:
     raise SystemExit(f'构建目录包含预期之外的文件，请先检查: {actual - expected}')
