@@ -64,4 +64,3 @@ BusinessRuntime 和 CapabilityRegistry 指向 canonical 实现。实际配置需
 
 
 参考 [Restaurant 示例](https://brivya.com/docs/restaurant/) 学习注册能力和执行测试；参考 [适配器指南](https://brivya.com/docs/adapters/) 连接协议入口。
-

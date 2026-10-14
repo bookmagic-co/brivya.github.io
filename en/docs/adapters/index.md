@@ -43,10 +43,10 @@ The default context contains only an untrusted Agent actor. Protected capabiliti
 
 ## WorkBuddy and WeChat AI
 
-| Reference projection | Output | 
+| Reference projection | Output |
 |  --- | --- |
-| WorkBuddy | connector-meta.json, mcp.json, skills/business/SKILL.md | 
-| WeChat AI | SKILL.md, mcp.json, runtime-bridge.json, components and registration patch | 
+| WorkBuddy | connector-meta.json, mcp.json, skills/business/SKILL.md |
+| WeChat AI | SKILL.md, mcp.json, runtime-bridge.json, components and registration patch |
 
 
 
@@ -62,4 +62,3 @@ These are reference generators and conformance baselines. Production publication
 
 
 SemanticExperience describes shared interactions; platform renderers provide native presentation while actions remain bound to canonical Capability IDs.
-

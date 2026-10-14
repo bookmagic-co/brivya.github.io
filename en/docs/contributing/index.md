@@ -31,4 +31,3 @@ The public framework uses Apache-2.0. Brivya names and branding are governed sep
 
 
 [Read the license ↗](https://github.com/brivya/brivya/blob/main/LICENSE)
-

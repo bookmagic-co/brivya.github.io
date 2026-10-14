@@ -39,7 +39,6 @@ Brivya 是开源 Business-to-Agent 基础设施。它将真实业务能力定义
 
 [查看包列表与版本说明 →](https://brivya.com/docs/releases/)
 
-
 ---
 
 # 快速开始
@@ -103,7 +102,6 @@ brivya dev business.agent.yaml --watch
 
 [继续阅读 SDK](https://brivya.com/docs/sdk/)，或通过 [Restaurant 示例](https://brivya.com/docs/restaurant/) 理解完整执行路径。
 
-
 ---
 
 # 架构与安全
@@ -160,14 +158,13 @@ BusinessRuntime 执行业务安全语义。LLM 不直接修改业务数据库；
 
 ## 核心模块
 
-| 模块 | 职责 | 
+| 模块 | 职责 |
 |  --- | --- |
-| Core / Manifest | 类型化业务契约、解析与校验 | 
-| Policy / Runtime | 策略与受治理执行 | 
-| Experience / Distribution | 统一交互语义与平台投影 | 
-| SDK / CLI | 开发接口与本地契约工具 | 
+| Core / Manifest | 类型化业务契约、解析与校验 |
+| Policy / Runtime | 策略与受治理执行 |
+| Experience / Distribution | 统一交互语义与平台投影 |
+| SDK / CLI | 开发接口与本地契约工具 |
 | Adapters / Connectors | 协议入口与业务系统边界 |
-
 
 ---
 
@@ -238,7 +235,6 @@ BusinessRuntime 和 CapabilityRegistry 指向 canonical 实现。实际配置需
 
 参考 [Restaurant 示例](https://brivya.com/docs/restaurant/) 学习注册能力和执行测试；参考 [适配器指南](https://brivya.com/docs/adapters/) 连接协议入口。
 
-
 ---
 
 # 协议与平台适配
@@ -286,10 +282,10 @@ POST /v0alpha1/capabilities/{capability}/execute
 
 ## WorkBuddy 与 WeChat AI
 
-| 参考投影 | 生成内容 | 
+| 参考投影 | 生成内容 |
 |  --- | --- |
-| WorkBuddy | connector-meta.json、mcp.json、skills/business/SKILL.md | 
-| WeChat AI | SKILL.md、mcp.json、runtime-bridge.json、components 与注册补丁 | 
+| WorkBuddy | connector-meta.json、mcp.json、skills/business/SKILL.md |
+| WeChat AI | SKILL.md、mcp.json、runtime-bridge.json、components 与注册补丁 |
 
 
 
@@ -305,7 +301,6 @@ POST /v0alpha1/capabilities/{capability}/execute
 
 
 统一交互语义由 SemanticExperience 描述，再交给平台 renderer 呈现；业务动作仍绑定 canonical Capability ID。
-
 
 ---
 
@@ -354,7 +349,6 @@ Phase 1 使用 worker 与 remote 执行模型。WASM 延后，任意第三方进
 
 [回到运行时安全模型 →](https://brivya.com/docs/architecture/)
 
-
 ---
 
 # Restaurant 示例
@@ -367,13 +361,13 @@ Language: zh
 
 ## 示例能力
 
-| Capability | 业务步骤 | 
+| Capability | 业务步骤 |
 |  --- | --- |
-| menu.search | 搜索菜单 | 
-| availability.check | 检查可用性 | 
-| reservation.create | 创建预订 | 
-| order.create | 创建订单 | 
-| payment.request | 请求支付 | 
+| menu.search | 搜索菜单 |
+| availability.check | 检查可用性 |
+| reservation.create | 创建预订 |
+| order.create | 创建订单 |
+| payment.request | 请求支付 |
 
 
 
@@ -413,7 +407,6 @@ node --test examples/restaurant/dist/test/*.test.js
 
 
 payment.request 表示业务支付请求，不表示示例已经接通真实支付渠道。Manifest 中的 bootstrap URL 是示例业务身份，不是官网提供的在线演示服务。
-
 
 ---
 
@@ -468,7 +461,6 @@ npm install -g @brivya/cli@0.1.0-alpha.1
 - 所有 canonical 包保持版本一致。
 - 不要将 Alpha 变更视为稳定兼容保证。
 
-
 ---
 
 # 参与贡献与安全
@@ -504,4 +496,3 @@ Language: zh
 
 
 [查看许可证原文 ↗](https://github.com/brivya/brivya/blob/main/LICENSE)
-

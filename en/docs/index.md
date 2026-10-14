@@ -29,4 +29,3 @@ The public release is `0.1.0-alpha.1`. All 14 public npm packages use the `next`
 
 
 [Explore versions and packages →](https://brivya.com/en/docs/releases/)
-

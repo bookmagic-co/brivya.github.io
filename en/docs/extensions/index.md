@@ -43,4 +43,3 @@ Phase 1 models worker and remote execution. WASM is deferred and arbitrary third
 
 
 [Review runtime safety →](https://brivya.com/en/docs/architecture/)
-

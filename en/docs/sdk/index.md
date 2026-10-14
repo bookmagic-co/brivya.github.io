@@ -64,4 +64,3 @@ BusinessRuntime and CapabilityRegistry reference the canonical implementations. 
 
 
 See the [Restaurant reference](https://brivya.com/en/docs/restaurant/) for execution tests and the [adapter guide](https://brivya.com/en/docs/adapters/) for protocol integration.
-

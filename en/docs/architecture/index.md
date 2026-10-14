@@ -52,11 +52,10 @@ Protocol and experience projections must preserve risk, approval, permissions, i
 
 ## Core modules
 
-| Module | Responsibility | 
+| Module | Responsibility |
 |  --- | --- |
-| Core / Manifest | Typed contracts, parsing and validation | 
-| Policy / Runtime | Policy and governed execution | 
-| Experience / Distribution | Shared interaction semantics and projections | 
-| SDK / CLI | Developer APIs and local contract tools | 
+| Core / Manifest | Typed contracts, parsing and validation |
+| Policy / Runtime | Policy and governed execution |
+| Experience / Distribution | Shared interaction semantics and projections |
+| SDK / CLI | Developer APIs and local contract tools |
 | Adapters / Connectors | Protocol entry points and business boundaries |
-

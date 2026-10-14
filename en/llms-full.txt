@@ -39,7 +39,6 @@ The public release is `0.1.0-alpha.1`. All 14 public npm packages use the `next`
 
 [Explore versions and packages →](https://brivya.com/en/docs/releases/)
 
-
 ---
 
 # Quick Start
@@ -103,7 +102,6 @@ Use the SDK to register contracts, supply authorization and policy, implement Co
 
 Continue with the [SDK](https://brivya.com/en/docs/sdk/) or the [Restaurant reference](https://brivya.com/en/docs/restaurant/).
 
-
 ---
 
 # Architecture and safety
@@ -160,14 +158,13 @@ Protocol and experience projections must preserve risk, approval, permissions, i
 
 ## Core modules
 
-| Module | Responsibility | 
+| Module | Responsibility |
 |  --- | --- |
-| Core / Manifest | Typed contracts, parsing and validation | 
-| Policy / Runtime | Policy and governed execution | 
-| Experience / Distribution | Shared interaction semantics and projections | 
-| SDK / CLI | Developer APIs and local contract tools | 
+| Core / Manifest | Typed contracts, parsing and validation |
+| Policy / Runtime | Policy and governed execution |
+| Experience / Distribution | Shared interaction semantics and projections |
+| SDK / CLI | Developer APIs and local contract tools |
 | Adapters / Connectors | Protocol entry points and business boundaries |
-
 
 ---
 
@@ -238,7 +235,6 @@ BusinessRuntime and CapabilityRegistry reference the canonical implementations. 
 
 See the [Restaurant reference](https://brivya.com/en/docs/restaurant/) for execution tests and the [adapter guide](https://brivya.com/en/docs/adapters/) for protocol integration.
 
-
 ---
 
 # Protocols and platforms
@@ -286,10 +282,10 @@ The default context contains only an untrusted Agent actor. Protected capabiliti
 
 ## WorkBuddy and WeChat AI
 
-| Reference projection | Output | 
+| Reference projection | Output |
 |  --- | --- |
-| WorkBuddy | connector-meta.json, mcp.json, skills/business/SKILL.md | 
-| WeChat AI | SKILL.md, mcp.json, runtime-bridge.json, components and registration patch | 
+| WorkBuddy | connector-meta.json, mcp.json, skills/business/SKILL.md |
+| WeChat AI | SKILL.md, mcp.json, runtime-bridge.json, components and registration patch |
 
 
 
@@ -305,7 +301,6 @@ These are reference generators and conformance baselines. Production publication
 
 
 SemanticExperience describes shared interactions; platform renderers provide native presentation while actions remain bound to canonical Capability IDs.
-
 
 ---
 
@@ -355,7 +350,6 @@ Phase 1 models worker and remote execution. WASM is deferred and arbitrary third
 
 [Review runtime safety →](https://brivya.com/en/docs/architecture/)
 
-
 ---
 
 # Restaurant reference
@@ -368,13 +362,13 @@ Language: en
 
 ## Capabilities
 
-| Capability | Business step | 
+| Capability | Business step |
 |  --- | --- |
-| menu.search | Search the menu | 
-| availability.check | Check availability | 
-| reservation.create | Create a reservation | 
-| order.create | Create an order | 
-| payment.request | Request payment | 
+| menu.search | Search the menu |
+| availability.check | Check availability |
+| reservation.create | Create a reservation |
+| order.create | Create an order |
+| payment.request | Request payment |
 
 
 
@@ -414,7 +408,6 @@ Build all workspaces first to prepare cross-package dependencies. Then run the c
 
 
 payment.request is a business payment request, not a connection to a real payment channel. The bootstrap URL is example identity, not a hosted live demo.
-
 
 ---
 
@@ -469,7 +462,6 @@ This version does not promise hosted Runtime, Registry, enterprise identity or a
 - Keep canonical package versions aligned.
 - Do not assume Alpha changes are stable compatibility guarantees.
 
-
 ---
 
 # Contributing and security
@@ -505,4 +497,3 @@ The public framework uses Apache-2.0. Brivya names and branding are governed sep
 
 
 [Read the license ↗](https://github.com/brivya/brivya/blob/main/LICENSE)
-

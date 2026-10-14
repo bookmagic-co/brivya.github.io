@@ -52,11 +52,10 @@ BusinessRuntime 执行业务安全语义。LLM 不直接修改业务数据库；
 
 ## 核心模块
 
-| 模块 | 职责 | 
+| 模块 | 职责 |
 |  --- | --- |
-| Core / Manifest | 类型化业务契约、解析与校验 | 
-| Policy / Runtime | 策略与受治理执行 | 
-| Experience / Distribution | 统一交互语义与平台投影 | 
-| SDK / CLI | 开发接口与本地契约工具 | 
+| Core / Manifest | 类型化业务契约、解析与校验 |
+| Policy / Runtime | 策略与受治理执行 |
+| Experience / Distribution | 统一交互语义与平台投影 |
+| SDK / CLI | 开发接口与本地契约工具 |
 | Adapters / Connectors | 协议入口与业务系统边界 |
-

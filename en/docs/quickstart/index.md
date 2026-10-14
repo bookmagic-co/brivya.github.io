@@ -58,4 +58,3 @@ Use the SDK to register contracts, supply authorization and policy, implement Co
 
 
 Continue with the [SDK](https://brivya.com/en/docs/sdk/) or the [Restaurant reference](https://brivya.com/en/docs/restaurant/).
-

@@ -43,10 +43,10 @@ POST /v0alpha1/capabilities/{capability}/execute
 
 ## WorkBuddy 与 WeChat AI
 
-| 参考投影 | 生成内容 | 
+| 参考投影 | 生成内容 |
 |  --- | --- |
-| WorkBuddy | connector-meta.json、mcp.json、skills/business/SKILL.md | 
-| WeChat AI | SKILL.md、mcp.json、runtime-bridge.json、components 与注册补丁 | 
+| WorkBuddy | connector-meta.json、mcp.json、skills/business/SKILL.md |
+| WeChat AI | SKILL.md、mcp.json、runtime-bridge.json、components 与注册补丁 |
 
 
 
@@ -62,4 +62,3 @@ POST /v0alpha1/capabilities/{capability}/execute
 
 
 统一交互语义由 SemanticExperience 描述，再交给平台 renderer 呈现；业务动作仍绑定 canonical Capability ID。
-

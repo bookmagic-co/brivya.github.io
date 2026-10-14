@@ -8,13 +8,13 @@ Language: zh
 
 ## 示例能力
 
-| Capability | 业务步骤 | 
+| Capability | 业务步骤 |
 |  --- | --- |
-| menu.search | 搜索菜单 | 
-| availability.check | 检查可用性 | 
-| reservation.create | 创建预订 | 
-| order.create | 创建订单 | 
-| payment.request | 请求支付 | 
+| menu.search | 搜索菜单 |
+| availability.check | 检查可用性 |
+| reservation.create | 创建预订 |
+| order.create | 创建订单 |
+| payment.request | 请求支付 |
 
 
 
@@ -54,4 +54,3 @@ node --test examples/restaurant/dist/test/*.test.js
 
 
 payment.request 表示业务支付请求，不表示示例已经接通真实支付渠道。Manifest 中的 bootstrap URL 是示例业务身份，不是官网提供的在线演示服务。
-

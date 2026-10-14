@@ -48,4 +48,3 @@ npm install -g @brivya/cli@0.1.0-alpha.1
 - 先运行业务契约、权限、审批、幂等和适配器测试。
 - 所有 canonical 包保持版本一致。
 - 不要将 Alpha 变更视为稳定兼容保证。
-

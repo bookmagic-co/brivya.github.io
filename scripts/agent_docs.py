@@ -67,7 +67,7 @@ class Markdown(HTMLParser):
         self.parts.append(text)
 
     def result(self):
-        return ''.join(self.parts).strip() + '\n'
+        return '\n'.join(line.rstrip() for line in ''.join(self.parts).strip().splitlines()) + '\n'
 
 
 def generate(root=ROOT):
@@ -88,6 +88,7 @@ def generate(root=ROOT):
                 content += '## ' + heading + '\n\n' + parser.result() + '\n'
             file = root / route.lstrip('/') / 'index.md'
             file.parent.mkdir(parents=True, exist_ok=True)
+            content = content.rstrip() + '\n'
             file.write_text(content)
             listing += f'- [{page_title}]({markdown_url}): {summary}\n'
             full += '\n---\n\n' + content

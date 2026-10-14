@@ -8,13 +8,13 @@ Language: en
 
 ## Capabilities
 
-| Capability | Business step | 
+| Capability | Business step |
 |  --- | --- |
-| menu.search | Search the menu | 
-| availability.check | Check availability | 
-| reservation.create | Create a reservation | 
-| order.create | Create an order | 
-| payment.request | Request payment | 
+| menu.search | Search the menu |
+| availability.check | Check availability |
+| reservation.create | Create a reservation |
+| order.create | Create an order |
+| payment.request | Request payment |
 
 
 
@@ -54,4 +54,3 @@ Build all workspaces first to prepare cross-package dependencies. Then run the c
 
 
 payment.request is a business payment request, not a connection to a real payment channel. The bootstrap URL is example identity, not a hosted live demo.
-
