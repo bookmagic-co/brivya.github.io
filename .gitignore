@@ -1,0 +1,5 @@
+# 本地审阅截图，无需部署
+desktop.png
+mobile.png
+_site/
+__pycache__/
