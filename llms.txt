@@ -1,0 +1,28 @@
+# Brivya
+
+> Business-to-Agent infrastructure · v0.1.0-alpha.1
+
+本站提供 Brivya 开源框架文档，不是可调用的生产 Business Agent。本站未公布业务执行、OAuth 或工具调用端点。公开 API 尚未稳定，发现能力不等于获得授权。
+
+## Documentation
+
+- [文档中心](https://brivya.com/docs/index.md): 从业务契约到多平台接入，找到构建 Business Agent 的下一步。
+- [快速开始](https://brivya.com/docs/quickstart/index.md): 用 CLI 创建第一份业务契约，验证本地开发配置。
+- [架构与安全](https://brivya.com/docs/architecture/index.md): 一份业务真相，多个平台投影；每一次变更都经过同一治理路径。
+- [TypeScript SDK](https://brivya.com/docs/sdk/index.md): 复用公开业务类型、Manifest 校验器与 canonical 运行时。
+- [协议与平台适配](https://brivya.com/docs/adapters/index.md): REST 和 MCP 共享运行时，平台分发配置复用 canonical 业务语义。
+- [Extension Host](https://brivya.com/docs/extensions/index.md): 明确声明权限，通过受限 Host API 扩展业务能力。
+- [Restaurant 示例](https://brivya.com/docs/restaurant/index.md): 通过确定性测试理解发现、预订、订单和支付请求的完整业务链路。
+- [版本与包](https://brivya.com/docs/releases/index.md): 了解当前 Alpha 的公开模块、安装方式与稳定性边界。
+- [参与贡献与安全](https://brivya.com/docs/contributing/index.md): 帮助完善业务契约、开发工具和多平台一致性。
+
+## Complete text
+
+- [All documentation](https://brivya.com/llms-full.txt)
+
+## Languages and source
+
+- [中文](https://brivya.com/llms.txt)
+- [English](https://brivya.com/en/llms.txt)
+- [Machine-readable index](https://brivya.com/ai/index.json)
+- [Implementation source](https://github.com/brivya/brivya)

@@ -91,6 +91,9 @@ def generate(root=ROOT):
         html = html.replace('</head>', alternatives + '<link rel="stylesheet" href="/assets/language.css"><script src="/assets/language.js" defer></script></head>')
         switch = f'<div class="language-switch" role="group" aria-label="Language"><a href="{zh_path}" lang="zh-CN" hreflang="zh-CN" data-language="zh"{' aria-current="true"' if language == "zh" else ""}>中文</a><a href="/en{zh_path}" lang="en" hreflang="en" data-language="en"{' aria-current="true"' if language == "en" else ""}>EN</a></div>'
         html = html.replace('</nav></header>', switch + '</nav></header>', 1)
+        ai_prefix = '/en' if language == 'en' else ''
+        html = html.replace('</head>', f'<link rel="alternate" type="text/plain" href="{ai_prefix}/llms.txt"><link rel="alternate" type="text/markdown" href="{path}index.md"></head>')
+        html = html.replace('</main>', f'<p class="doc-source"><a href="{ai_prefix}/llms.txt">AI docs</a> · <a href="{path}index.md">Markdown</a></p></main>')
         target = root / path.lstrip('/') / 'index.html'
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(html)

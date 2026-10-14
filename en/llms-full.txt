@@ -1,0 +1,499 @@
+# Brivya
+
+> Business-to-Agent infrastructure · v0.1.0-alpha.1
+
+This website documents the open Brivya framework. It is not a callable production Business Agent. No business execution, OAuth or tool endpoint is advertised here. APIs are pre-stable. Discovery does not grant authorization.
+
+
+---
+
+# Documentation
+
+Build a Business Agent, from its first contract to governed execution and platform integration.
+
+Canonical: https://brivya.com/en/docs/
+Version: 0.1.0-alpha.1
+Language: en
+
+## Start here
+
+Brivya is open Business-to-Agent infrastructure. It models real business capabilities as typed contracts and connects REST, MCP and distribution ecosystems through one governed runtime.
+
+
+
+New to Brivya? Start with the CLI, then explore the architecture and Restaurant reference. Existing TypeScript applications can begin with the SDK and protocol adapters.
+
+## Developer journey
+
+- [Quick Start](https://brivya.com/en/docs/quickstart/): generate and validate a business Manifest.
+- [Architecture and safety](https://brivya.com/en/docs/architecture/): understand contracts, runtime and projections.
+- [TypeScript SDK](https://brivya.com/en/docs/sdk/): use canonical types and execution.
+- [Protocols and platforms](https://brivya.com/en/docs/adapters/): connect REST, MCP and reference distribution profiles.
+- [Restaurant reference](https://brivya.com/en/docs/restaurant/): run the existing end-to-end contract tests.
+
+## Current version
+
+The public release is `0.1.0-alpha.1`. All 14 public npm packages use the `next` dist-tag. APIs are pre-stable. These docs describe the Alpha baseline, not a hosted service or a third-party publication guarantee.
+
+
+
+[Explore versions and packages →](https://brivya.com/en/docs/releases/)
+
+---
+
+# Quick Start
+
+Create your first business contract and validate the local development configuration.
+
+Canonical: https://brivya.com/en/docs/quickstart/
+Version: 0.1.0-alpha.1
+Language: en
+
+## Prerequisites
+
+Use Node.js 20 or newer and npm. The local CLI flow does not require a cloud account, LLM API key or database.
+
+
+
+```
+node --version
+npm --version
+npm install -g @brivya/cli@0.1.0-alpha.1
+```
+
+## Create a business contract
+
+```
+mkdir my-business
+cd my-business
+brivya init
+brivya validate
+brivya inspect
+brivya dev
+```
+
+
+
+`init` creates `business.agent.yaml`; `validate` checks the Manifest; `inspect` shows the resolved definition; `dev` validates and displays local configuration.
+
+
+
+The generated Manifest is a contract scaffold. It is not connected to a real business system. CLI dev does not start an HTTP server or replace BusinessRuntime execution.
+
+## Edit and observe
+
+Maintain business identity, capabilities, protocols and security requirements in the generated Manifest. Inspect the scaffold before editing and keep validation in your workflow. To observe changes:
+
+
+
+```
+brivya dev business.agent.yaml --watch
+```
+
+
+
+You can pass an explicit Manifest path to validate, inspect and dev. Init does not silently overwrite existing files.
+
+## Connect real capabilities
+
+Use the SDK to register contracts, supply authorization and policy, implement Connectors and attach protocol adapters. Discovering a capability never grants permission to mutate business state.
+
+
+
+Continue with the [SDK](https://brivya.com/en/docs/sdk/) or the [Restaurant reference](https://brivya.com/en/docs/restaurant/).
+
+---
+
+# Architecture and safety
+
+One business truth, many projections. Every mutation follows the same governed execution path.
+
+Canonical: https://brivya.com/en/docs/architecture/
+Version: 0.1.0-alpha.1
+Language: en
+
+## Layers
+
+AI platforms and Agent Hosts
+
+↓
+
+DistributionProfile · REST / MCP
+
+↓
+
+Canonical Business Agent · BusinessRuntime
+
+↓
+
+Connector · ERP / CRM / POS / Business APIs
+
+
+
+
+
+Manifests, resources, capabilities and events define the canonical contract. Protocol adapters project invocation; distribution profiles project discovery, experience and packaging. Business authority stays in the contracts and runtime.
+
+## Mutation path
+
+```
+Validate → Authorize → Policy → Approval when required
+→ Idempotency → Connector → Transaction / Audit / Event
+```
+
+
+
+BusinessRuntime owns safety semantics. LLMs do not directly mutate business databases. Adapters cannot invoke Connectors to bypass authorization, policy or approval.
+
+## Identity and authorization
+
+- Agent Identity is not Authorization: recognizing a caller does not grant unrestricted execution.
+- Discovery is not Authorization: a Manifest describes capabilities, not mutation permission.
+- Platform Identity supplies context and still requires business authorization.
+- UI Confirmation is not an ApprovalRecord: a client confirmation does not replace trusted evidence.
+
+
+
+Protocol and experience projections must preserve risk, approval, permissions, idempotency and audit semantics.
+
+## Core modules
+
+| Module | Responsibility |
+|  --- | --- |
+| Core / Manifest | Typed contracts, parsing and validation |
+| Policy / Runtime | Policy and governed execution |
+| Experience / Distribution | Shared interaction semantics and projections |
+| SDK / CLI | Developer APIs and local contract tools |
+| Adapters / Connectors | Protocol entry points and business boundaries |
+
+---
+
+# TypeScript SDK
+
+Reuse public business types, Manifest validation and the canonical runtime.
+
+Canonical: https://brivya.com/en/docs/sdk/
+Version: 0.1.0-alpha.1
+Language: en
+
+## Install
+
+```
+npm install @brivya/sdk@0.1.0-alpha.1
+```
+
+
+
+The SDK is a facade over Core, Manifest, Policy and Runtime. It does not introduce another authorization model or runtime truth.
+
+## Load a Manifest
+
+Read a Manifest generated by CLI init, then use canonical parsing and validation:
+
+
+
+```
+import { readFileSync } from "node:fs";
+import { loadBusinessAgentManifest } from "@brivya/sdk";
+
+const source = readFileSync("business.agent.yaml", "utf8");
+const agent = loadBusinessAgentManifest(source);
+console.log(agent.metadata.id);
+```
+
+
+
+Handle parsing and validation errors rather than executing with an invalid Manifest.
+
+## Runtime and types
+
+```
+import {
+  BusinessRuntime,
+  CapabilityRegistry,
+  runtime,
+  type ActionRequest,
+  type CapabilityContract,
+  type Principal,
+  type Delegation,
+} from "@brivya/sdk";
+```
+
+
+
+BusinessRuntime and CapabilityRegistry reference the canonical implementations. Execution also needs capability registration, Connectors, trusted authorization context and runtime dependencies. Importing the SDK alone does not create a business service.
+
+## Integration order
+
+- Define capability inputs, outputs and safety requirements.
+- Register contracts with CapabilityRegistry.
+- Provide Connectors plus policy, approval, idempotency and audit implementations.
+- Construct identity and delegation context on a trusted server.
+- Execute through BusinessRuntime or adapters attached to that same runtime.
+
+
+
+See the [Restaurant reference](https://brivya.com/en/docs/restaurant/) for execution tests and the [adapter guide](https://brivya.com/en/docs/adapters/) for protocol integration.
+
+---
+
+# Protocols and platforms
+
+REST and MCP share the runtime. Distribution profiles reuse canonical business semantics.
+
+Canonical: https://brivya.com/en/docs/adapters/
+Version: 0.1.0-alpha.1
+Language: en
+
+## REST boundary
+
+The REST adapter is an HTTP-framework-neutral execution projection:
+
+
+
+```
+POST /v0alpha1/capabilities/{capability}/execute
+
+{
+  "input": {},
+  "preconditions": {}
+}
+```
+
+
+
+Protocol metadata uses X-Brivya-Capability-Version, X-Request-Id, X-Correlation-Id, X-Causation-Id and Idempotency-Key headers. The body cannot assert trusted identity or approval state.
+
+
+
+The hosting HTTP layer verifies authentication or session state and supplies a trusted RestSecurityContext. The adapter constructs an ActionRequest and calls BusinessRuntime.
+
+## MCP projection
+
+The capability `order.create@0.1.0` becomes the tool `brivya.order.create.v0.1.0`. Input and output JSON Schemas pass through to the MCP SDK.
+
+
+
+The hosting transport/auth layer supplies a trusted McpContextResolver for verified identity, delegation, approvals and correlation metadata. Tool arguments are business input only. MCP annotations are hints, not authorization.
+
+
+
+The default context contains only an untrusted Agent actor. Protected capabilities fail closed without a trusted resolver.
+
+## WorkBuddy and WeChat AI
+
+| Reference projection | Output |
+|  --- | --- |
+| WorkBuddy | connector-meta.json, mcp.json, skills/business/SKILL.md |
+| WeChat AI | SKILL.md, mcp.json, runtime-bridge.json, components and registration patch |
+
+
+
+These are reference generators and conformance baselines. Production publication still requires current official platform requirements, qualification and review. Third-party fields and APIs are not guaranteed stable.
+
+## Before integration
+
+- Preserve schemas, risk and permission requirements.
+- Keep canonical approval requirements for high-risk actions.
+- Preserve idempotency and audit across protocols.
+- Never elevate client identity or UI confirmation into trusted authorization evidence.
+
+
+
+SemanticExperience describes shared interactions; platform renderers provide native presentation while actions remain bound to canonical Capability IDs.
+
+---
+
+# Extension Host
+
+Declare permissions explicitly and extend capabilities through a scoped Host API.
+
+Canonical: https://brivya.com/en/docs/extensions/
+Version: 0.1.0-alpha.1
+Language: en
+
+## Alpha baseline
+
+The baseline includes Extension Manifest / Package, permission grants, expansion detection, install plans, Registry Client contracts, and worker / remote boundaries.
+
+
+
+These framework contracts do not imply an existing hosted Registry or third-party marketplace.
+
+## Effective permissions
+
+```
+Requested permissions ∩ Tenant policy ∩ Administrator grant
+= Effective permissions
+```
+
+
+
+Declaring a permission does not grant it. A new version that expands privileges requires approval again. The host grants only the permitted intersection.
+
+## Execution and secrets
+
+```
+Extension → Host API
+→ Canonical Brivya Runtime / Governed platform service
+```
+
+
+
+The Host API enforces permissions. Secrets use opaque bindings rather than raw values. There is no raw secret-read Host API.
+
+## Current limits
+
+Phase 1 models worker and remote execution. WASM is deferred and arbitrary third-party in-process execution is outside the baseline. Validate host isolation, authorization and outbound policy before production use.
+
+
+
+[Review runtime safety →](https://brivya.com/en/docs/architecture/)
+
+---
+
+# Restaurant reference
+
+Follow discovery, reservations, orders and payment requests through deterministic contract tests.
+
+Canonical: https://brivya.com/en/docs/restaurant/
+Version: 0.1.0-alpha.1
+Language: en
+
+## Capabilities
+
+| Capability | Business step |
+|  --- | --- |
+| menu.search | Search the menu |
+| availability.check | Check availability |
+| reservation.create | Create a reservation |
+| order.create | Create an order |
+| payment.request | Request payment |
+
+
+
+REST and MCP use the same contracts and BusinessRuntime. The reference uses mock Connectors without an LLM provider or real payment SDK dependency.
+
+## Get and run
+
+```
+git clone https://github.com/brivya/brivya.git
+cd brivya
+npm install --ignore-scripts --no-audit --no-fund
+npm run ci
+```
+
+
+
+The current repository has no committed lockfile, so use the same npm install approach as CI. The root command builds, typechecks and tests, including the Restaurant RST-001..RST-024 contract matrix.
+
+## Run reference tests only
+
+```
+npm run build
+node --test examples/restaurant/dist/test/*.test.js
+```
+
+
+
+Build all workspaces first to prepare cross-package dependencies. Then run the compiled reference suite, covering execution, safety rejection and audit behavior with deterministic data.
+
+## Reading path
+
+- `examples/restaurant/src/manifest.ts`: business identity and capability declarations.
+- `examples/restaurant/src/capabilities.ts`: capability definitions.
+- `examples/restaurant/test/`: end-to-end evidence.
+- `connectors/mock/`: mock business integration.
+
+
+
+payment.request is a business payment request, not a connection to a real payment channel. The bootstrap URL is example identity, not a hosted live demo.
+
+---
+
+# Versions and packages
+
+Understand the public Alpha modules, installation and stability boundaries.
+
+Canonical: https://brivya.com/en/docs/releases/
+Version: 0.1.0-alpha.1
+Language: en
+
+## v0.1.0-alpha.1
+
+The first public Alpha was released on October 3, 2026. All 14 public npm packages use `0.1.0-alpha.1` under the `next` dist-tag. Pin versions explicitly while APIs remain pre-stable.
+
+
+
+```
+npm install @brivya/sdk@0.1.0-alpha.1
+npm install -g @brivya/cli@0.1.0-alpha.1
+```
+
+## Public packages
+
+- `@brivya/core`
+- `@brivya/manifest`
+- `@brivya/policy`
+- `@brivya/runtime`
+- `@brivya/experience`
+- `@brivya/distribution`
+- `@brivya/extensions`
+- `@brivya/sdk`
+- `@brivya/cli`
+- `@brivya/adapter-rest`
+- `@brivya/adapter-mcp`
+- `@brivya/adapter-workbuddy`
+- `@brivya/adapter-wechat-ai`
+- `@brivya/connector-mock`
+
+## Capabilities and limits
+
+The baseline includes typed contracts, governed runtime, REST / MCP, reference distribution profiles, CLI / SDK, Restaurant E2E and Extension Host. The root workspace and Restaurant example are not published npm packages.
+
+
+
+This version does not promise hosted Runtime, Registry, enterprise identity or automatic production platform publication. npm OIDC migration concerns release governance, not installation or website use.
+
+## Before upgrading
+
+- Review release notes for API and Manifest compatibility.
+- Run business contract, permission, approval, idempotency and adapter tests.
+- Keep canonical package versions aligned.
+- Do not assume Alpha changes are stable compatibility guarantees.
+
+---
+
+# Contributing and security
+
+Help improve business contracts, developer tools and platform conformance.
+
+Canonical: https://brivya.com/en/docs/contributing/
+Version: 0.1.0-alpha.1
+Language: en
+
+## Contributing
+
+Contribute through issues and Pull Requests in the public implementation repository. Discuss substantial changes first. Preserve protocol and model neutrality, typed capabilities and explicit policy boundaries.
+
+
+- Create a feature branch for a focused change.
+- Add tests and public documentation for behavior changes.
+- Run npm run ci and relevant release checks.
+- Describe the problem, behavior, validation and compatibility in a PR.
+
+## Security reports
+
+Report potential vulnerabilities privately through the channels in SECURITY.md. Never post credentials, customer data or sensitive vulnerability details in public issues.
+
+
+
+[Security reporting channels ↗](https://github.com/brivya/brivya/blob/main/SECURITY.md)
+
+## License and brand
+
+The public framework uses Apache-2.0. Brivya names and branding are governed separately by trademark policy. Framework use does not grant additional platform or brand permissions.
+
+
+
+[Read the license ↗](https://github.com/brivya/brivya/blob/main/LICENSE)

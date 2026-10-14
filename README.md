@@ -35,3 +35,9 @@
 中文首页为 `/`，英文首页为 `/en/`。中文首页是维护源，英文文案位于 `scripts/home_en.py`；运行 `python3 scripts/home_en.py` 生成英文首页。默认语言为中文，切换器使用当前页的对应路由；主动选择保存在本地浏览器中。直接打开文档 URL 时尊重链接语言。语言配置位于 `assets/language.js`，不使用第三方翻译服务。
 
 首页业务价值演示使用原生 SVG/CSS 和 JavaScript，在四个阶段说明发现、结构化请求、治理、执行与审计。文案维护于 `assets/business-animation.js`；首屏静态文案同时维护在首页及英文翻译表中。动画支持暂停、手动选段、不可见时停止，以及系统减少动效设置。它不是在线交易演示，不发出业务 API 请求。
+
+## AI 文档发现
+
+`/llms.txt` 和 `/en/llms.txt` 提供双语文档目录；对应的 `llms-full.txt` 包含该语言全部文档正文。每个文档目录提供 `index.md`，`/ai/index.json` 提供本网站定义的结构化索引（不宣称为通用 Agent 协议）。页面通过 alternate 链接与可见 AI docs / Markdown 入口提供发现提示。
+
+运行 `python3 scripts/agent_docs.py` 从同一文档维护源生成 AI 版本。它保留代码示例、链接和业务安全边界，不包含导航或动画脚本。CI 检查 HTML、Markdown、索引与全文的一致性。这些入口采用文档发现约定，不能保证所有 Agent 都会自动使用；网站未声明业务执行或授权服务。
