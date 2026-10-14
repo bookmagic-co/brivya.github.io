@@ -1,6 +1,6 @@
 # Brivya 官网初稿
 
-独立静态站点，目标仓库为 `bookmagic-co/brivya.github.io`。当前文件尚未推送或部署。
+独立静态站点，公开仓库为 `bookmagic-co/brivya.github.io`。源码与 CI 已推送，首次远端检查通过；首次部署等待仓库管理员开启 Pages。
 
 ## 本地审阅
 

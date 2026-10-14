@@ -38,10 +38,12 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory _site
 
 对引入问题的提交创建 revert PR，检查通过后合并；main 自动发布恢复后的产物。不要强推覆盖历史。
 
-## 当前外部阻塞
+## 当前执行结果与剩余步骤
 
-后续状态：用户已创建公开仓库 `bookmagic-co/brivya.github.io`，当前集成已验证具有管理员与推送权限。仓库为空，正在执行首次推送与 Pages 配置。下述创建权限问题属于原 `brivya` 组织的历史结果。
+2026-10-14：官网源码与工作流已成功推送。首次运行 [38524750819](https://github.com/bookmagic-co/brivya.github.io/actions/runs/38524750819) 的 Validate and build 全部通过，部署在 Check Pages configuration 失败，Deploy 步骤未执行。
 
-2026-10-14：最初 GitHub API 被网络策略拦截，已保存 API 与站点域名访问配置。随后 API 已可访问；当前平台 GitHub 身份可管理已选产品仓，但查询官网仓库返回 404，尝试创建组织仓库时返回 `403 Resource not accessible by integration`。因此当前阻塞是 GitHub 集成权限，不能通过更换命令解决。
+实际开启 Pages 的 API 请求返回 `403 Resource not accessible by integration`。管理员权限查询不代表 GitHub 集成具有 Pages API 写权限。官方 configure-pages 的自动启用参数也要求非 GITHUB_TOKEN 的额外权限，因此不通过添加未提供的 token 绕过此步骤。
 
-需由组织管理员创建公开仓库 `bookmagic-co/brivya.github.io`，并将它加入当前 GitHub 集成的授权仓库范围。完成后继续检查权限、推送并启用 Pages。不要在聊天中提供 token。Pages 与正式站点仍未上线；腾讯云 DNS 需要在实际 DNS 管理后台配置。
+管理员需在仓库 Settings → Pages 将 Source 选择为 GitHub Actions。然后重跑失败的部署 job 或手动触发工作流。先验证默认站点 `https://bookmagic-co.github.io/brivya.github.io/`；自定义域名验证完成后，在同一页面设置 `brivya.com`，按 DOMAIN.md 配置腾讯云 DNS 与 HTTPS。
+
+源码与 CI 已完成；Pages 首次上线、正式域名和 HTTPS 验证仍待完成。不要在聊天中提供 token。

@@ -22,3 +22,11 @@
 - GitHub Actions 尚未实际运行；本地 YAML 与命令检查不等于远端 CI 成功。
 - GitHub API 当前被代理网络策略拦截；已保存添加 API 与正式站点域名的网络配置草稿，尚未确认运行时生效。
 - 随后 GitHub API 已恢复响应：产品仓权限查询正常，官网仓查询返回 404；实际创建官网仓库请求被 GitHub 集成拒绝（403 Resource not accessible by integration）。未创建仓库或触发上线。
+
+## 官网仓库接入后的远端验证
+
+- 用户创建了公开仓库 `bookmagic-co/brivya.github.io`；接入前确认仓库为空，未覆盖已有文件。
+- 初始源码与 CI 提交 `b7111c1` 已成功推送。
+- GitHub Actions run 38524750819：Validate and build 成功，包括静态检查、JS 语法、构建与 Pages 产物上传。
+- Deploy to GitHub Pages 在 Check Pages configuration 失败；Deploy 被跳过，未声称上线。
+- Pages 创建 API 实际返回 403 Resource not accessible by integration，需要管理员在 Settings → Pages 启用 GitHub Actions。

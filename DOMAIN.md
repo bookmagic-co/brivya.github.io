@@ -23,7 +23,7 @@
 
 ## 当前状态
 
-本地文件已准备。尚未创建或推送官网仓库，尚未操作 GitHub Pages、DNS 后台或证书设置。购买域名本身不会自动将上述配置应用到服务商。
+源码已推送到公开仓库 `bookmagic-co/brivya.github.io`，CI 构建已通过。当前集成调用 Pages 启用 API 被拒绝，需要管理员在仓库设置选择 GitHub Actions，并填写 Custom domain。DNS 后台与证书设置尚未操作。购买域名本身不会自动应用这些设置。
 
 GitHub 官方说明：https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site
 
