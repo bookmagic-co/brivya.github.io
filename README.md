@@ -1,6 +1,6 @@
 # Brivya 官网初稿
 
-独立静态站点，公开仓库为 `bookmagic-co/brivya.github.io`。源码与 CI 已推送，首次远端检查通过；首次部署等待仓库管理员开启 Pages。
+独立静态站点，公开仓库为 `brivya/brivya.github.io`。官网已上线，仓库归属转移已确认，见 [MIGRATION.md](MIGRATION.md)。
 
 ## 本地审阅
 
@@ -10,7 +10,7 @@
 
 ## GitHub Pages 发布步骤
 
-1. 审阅页面与内容后，把此目录内容放入独立的 `bookmagic-co/brivya.github.io` 仓库的 `main` 分支根目录。保留已有文件，先检查目标仓库状态。
+1. 审阅页面与内容后，把此目录内容放入独立的 `brivya/brivya.github.io` 仓库的 `main` 分支根目录。保留已有文件，先检查目标仓库状态。
 2. 在仓库 Settings → Pages 中将 Source 选择为 **GitHub Actions**。工作流 `.github/workflows/pages.yml` 在 PR 上执行检查；`main` 推送或手动触发后，检查成功才上传 `_site` 并部署 Pages。PR 不部署生产环境。
 3. 确认默认 GitHub Pages 地址工作，检查首页、资源链接、移动布局与复制按钮。
 4. 已确认正式域名为 `brivya.com`。先在 GitHub 组织 Settings → Pages 验证域名所有权，再将仓库 Pages 的 Custom domain 设为 `brivya.com`，按 [DOMAIN.md](DOMAIN.md) 配置 DNS。
@@ -20,7 +20,7 @@
 
 自定义域名：https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site
 
-本地开发与自动部署配置已完成，部署仓库已确定为公开的 `bookmagic-co/brivya.github.io`。DNS 需要腾讯云后台配置。npm 发布与 OIDC 绑定属于独立任务。
+本地开发与自动部署配置已完成，部署仓库为公开的 `brivya/brivya.github.io`。DNS 需要腾讯云后台配置。npm 发布与 OIDC 绑定属于独立任务。
 
 开发与部署的完整执行步骤见 [DEPLOYMENT.md](DEPLOYMENT.md)。GitHub Actions 模式以 Pages 设置中的 Custom domain 为准；`CNAME` 文件不代替该设置。
 
