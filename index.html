@@ -11,15 +11,16 @@
   <meta property="og:url" content="https://brivya.com/">
   <link rel="canonical" href="https://brivya.com/">
   <title>Brivya · 让业务接入 Agent 世界</title>
-  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="assets/style.css">
-  <script src="assets/site.js" defer></script>
-</head>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script src="/assets/site.js" defer></script>
+<link rel="alternate" hreflang="zh-CN" href="https://brivya.com/"><link rel="alternate" hreflang="en" href="https://brivya.com/en/"><link rel="alternate" hreflang="x-default" href="https://brivya.com/">
+<link rel="stylesheet" href="/assets/language.css"><link rel="stylesheet" href="/assets/business-animation.css"><script src="/assets/language.js" defer></script><script src="/assets/business-animation.js" defer></script></head>
 <body>
   <a class="skip" href="#main">跳转到正文</a>
   <header class="header wrap">
     <a class="brand" href="#" aria-label="Brivya 首页"><span class="mark" aria-hidden="true">b</span>brivya<span class="brand-dot">.</span></a>
-    <nav aria-label="主导航"><a href="/docs/architecture/">架构</a><a href="/docs/quickstart/">Quick Start</a><a href="/docs/adapters/">生态</a><a class="github" href="https://github.com/brivya/brivya">GitHub ↗</a></nav>
+    <nav aria-label="主导航"><a href="/docs/architecture/">架构</a><a href="/docs/quickstart/">Quick Start</a><a href="/docs/adapters/">生态</a><a class="github" href="https://github.com/brivya/brivya">GitHub ↗</a><div class="language-switch" role="group" aria-label="Language"><a href="/" lang="zh-CN" hreflang="zh-CN" data-language="zh" aria-current="true">中文</a><a href="/en/" lang="en" hreflang="en" data-language="en">EN</a></div></nav>
   </header>
   <main id="main">
     <section class="hero wrap">
@@ -41,6 +42,18 @@
       </div>
     </section>
     <div class="facts wrap"><p><strong>14</strong><span>公开 npm 包</span></p><p><strong>1</strong><span>统一业务运行时</span></p><p><strong>多平台</strong><span>协议与分发投影</span></p><a href="/docs/releases/">v0.1.0-alpha.1 发布说明 ↗</a></div>
+    <section class="business-demo wrap" data-business-demo data-step="0" data-playing="false" id="business-value">
+      <div class="section-heading"><div><p class="eyebrow">BUSINESS VALUE / IN MOTION</p><h2>让对话进入业务，<br>让执行保持可控。</h2></div><p>以预订为例，看看 AI 如何理解业务、提交类型化请求，并通过统一运行时连接已有系统。</p></div>
+      <div class="demo-player"><div class="demo-toolbar"><span>RESTAURANT / CONCEPT WALKTHROUGH</span><button type="button" class="demo-toggle" data-demo-toggle aria-pressed="false">播放动画</button></div>
+        <div class="demo-diagram" aria-hidden="true"><svg class="demo-wires" viewBox="0 0 1000 220" preserveAspectRatio="none"><path d="M150 110 H850" fill="none"/><circle class="demo-particle" cx="150" cy="110" r="5"/></svg>
+          <div class="demo-node demo-agent"><small>AI ENTRY POINT</small><strong>用户意图</strong><p>MCP / Agent Host</p></div>
+          <div class="demo-node demo-runtime"><small>ONE BUSINESS TRUTH</small><strong>Brivya Runtime</strong><p>Policy · Approval · Audit</p><span class="demo-badge">GOVERNED EXECUTION</span></div>
+          <div class="demo-node demo-system"><small>EXISTING SYSTEMS</small><strong>业务系统</strong><p>ERP / CRM / POS</p></div>
+        </div>
+        <div class="demo-story"><div><p class="eyebrow" data-demo-counter>01 / 04</p><h3 data-demo-title>发现业务能力</h3><p data-demo-description>AI 平台从类型化业务契约发现 menu.search 与 availability.check。发现说明能力存在，但不会授予执行权限。</p></div><p class="demo-value" data-demo-value>业务价值：一次定义能力，让多个入口理解你的业务。</p></div>
+        <div class="demo-scenes" role="group" aria-label="业务流程阶段"><button type="button" data-scene="0" aria-current="step"><span>01 / DISCOVER</span>发现能力</button><button type="button" data-scene="1"><span>02 / REQUEST</span>结构化请求</button><button type="button" data-scene="2"><span>03 / GOVERN</span>治理检查</button><button type="button" data-scene="3"><span>04 / EXECUTE</span>执行与审计</button></div>
+      </div><p class="demo-footnote">概念动画，不调用真实业务接口。按需审批与授权由业务策略决定。<a href="/docs/restaurant/">了解可运行的 Restaurant 示例 →</a></p>
+    </section>
     <section class="section wrap" id="architecture">
       <div class="section-heading"><p class="eyebrow">01 / ARCHITECTURE</p><h2>一份业务真相，<br>连接多个生态。</h2><p>把业务契约、执行治理与平台投影分开。核心能力保持一致，交互体验适配不同的 Agent 平台。</p></div>
       <div class="principles">

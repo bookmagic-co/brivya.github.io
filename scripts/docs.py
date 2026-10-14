@@ -2,7 +2,7 @@
 """从集中维护的内容生成无依赖的官网文档页。"""
 from html import escape
 from pathlib import Path
-import json
+from docs_en import english_pages
 
 ROOT = Path(__file__).resolve().parents[1]
 PAGES = [
@@ -62,12 +62,16 @@ PAGES = [
 
 
 def generate(root=ROOT):
-    for n, (slug, title, summary, sections) in enumerate(PAGES):
-        path = '/docs/' + (slug + '/' if slug else '')
-        nav = ''.join(f'<a href="/docs/{s + "/" if s else ""}"'+ (' aria-current="page"' if s == slug else '') + f'>{escape(t)}</a>' for s, t, _, _ in PAGES)
+    urls = ["https://brivya.com/", "https://brivya.com/en/"]
+    for language, pages in [("zh", PAGES), ("en", english_pages(PAGES))]:
+      for n, (slug, title, summary, sections) in enumerate(pages):
+        zh_path = '/docs/' + (slug + '/' if slug else '')
+        path = ('/en' if language == 'en' else '') + zh_path
+        urls.append('https://brivya.com' + path)
+        nav = ''.join(f'<a href="/docs/{s + "/" if s else ""}"'+ (' aria-current="page"' if s == slug else '') + f'>{escape(t)}</a>' for s, t, _, _ in pages)
         toc = ''.join(f'<a href="#section-{i}">{escape(heading)}</a>' for i, (heading, _) in enumerate(sections))
         body = ''.join(f'<section id="section-{i}"><h2>{escape(heading)}</h2>{html}</section>' for i, (heading, html) in enumerate(sections))
-        next_slug, next_title, _, _ = PAGES[(n + 1) % len(PAGES)]
+        next_slug, next_title, _, _ = pages[(n + 1) % len(pages)]
         html = f'''<!doctype html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{escape(title)} · Brivya 文档</title><meta name="description" content="{escape(summary, quote=True)}">
@@ -78,12 +82,20 @@ def generate(root=ROOT):
 <div class="docs-shell wrap"><aside class="docs-sidebar"><p class="eyebrow">DEVELOPER DOCS</p><nav aria-label="文档导航">{nav}</nav><p class="docs-version">v0.1.0-alpha.1<br>预稳定 API</p></aside>
 <main id="main" class="doc-main"><p class="breadcrumb"><a href="/">首页</a> / <a href="/docs/">文档</a> / {escape(title)}</p><h1>{escape(title)}</h1><p class="doc-lead">{escape(summary)}</p><nav class="doc-toc" aria-label="本页目录"><span>本页内容</span>{toc}</nav>{body}<a class="doc-next" href="/docs/{next_slug + '/' if next_slug else ''}"><span>下一篇</span><strong>{escape(next_title)} →</strong></a><p class="doc-source">内容依据公开 Alpha 实现 · <a href="https://github.com/brivya/brivya">查看源码 ↗</a></p></main></div>
 <footer class="wrap footer"><a class="brand" href="/">brivya<span class="brand-dot">.</span></a><p>Make every business agent-accessible.</p><a href="/docs/contributing/">贡献与许可证 →</a></footer></body></html>'''
+        if language == 'en':
+            html = html.replace('lang="zh-CN"', 'lang="en"').replace('href="/docs/', 'href="/en/docs/').replace('href="/"', 'href="/en/"')
+            labels = {'Brivya 文档': 'Brivya Docs', '跳转到正文': 'Skip to content', 'Brivya 首页': 'Brivya home', '主导航': 'Main navigation', '文档导航': 'Documentation navigation', '本页目录': 'On this page', '预稳定 API': 'Pre-stable APIs', '本页内容': 'On this page', '下一篇': 'Up next', '内容依据公开 Alpha 实现': 'Based on the public Alpha implementation', '查看源码': 'View source', '贡献与许可证': 'Contributing and license', '首页': 'Home', '文档': 'Docs', '生态': 'Platforms', '源码': 'Source'}
+            for original, translated in labels.items():
+                html = html.replace(original, translated)
+        alternatives = f'<link rel="alternate" hreflang="zh-CN" href="https://brivya.com{zh_path}"><link rel="alternate" hreflang="en" href="https://brivya.com/en{zh_path}"><link rel="alternate" hreflang="x-default" href="https://brivya.com{zh_path}">'
+        html = html.replace('</head>', alternatives + '<link rel="stylesheet" href="/assets/language.css"><script src="/assets/language.js" defer></script></head>')
+        switch = f'<div class="language-switch" role="group" aria-label="Language"><a href="{zh_path}" lang="zh-CN" hreflang="zh-CN" data-language="zh"{' aria-current="true"' if language == "zh" else ""}>中文</a><a href="/en{zh_path}" lang="en" hreflang="en" data-language="en"{' aria-current="true"' if language == "en" else ""}>EN</a></div>'
+        html = html.replace('</nav></header>', switch + '</nav></header>', 1)
         target = root / path.lstrip('/') / 'index.html'
         target.parent.mkdir(parents=True, exist_ok=True)
         target.write_text(html)
-    urls = ['https://brivya.com/'] + ['https://brivya.com/docs/' + (slug + '/' if slug else '') for slug, _, _, _ in PAGES]
     (root / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' + ''.join(f'  <url><loc>{url}</loc></url>\n' for url in urls) + '</urlset>\n')
-    print(f'已生成 {len(PAGES)} 个文档内页')
+    print(f'已生成 {len(PAGES) * 2} 个双语文档内页')
 
 
 if __name__ == '__main__':
