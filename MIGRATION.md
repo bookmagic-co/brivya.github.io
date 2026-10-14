@@ -4,7 +4,7 @@
 
 ## 已确认
 
-- 官网当前部署来自 `bookmagic-co/brivya.github.io`。
+- 原部署仓库为 `bookmagic-co/brivya.github.io`，现已转移为 `brivya/brivya.github.io`。
 - 目标仓库已确认存在，公开且当前集成具有读写权限，远端 HEAD 与转移前一致。
 - 自动转移 API 原先返回 403；用户已通过 GitHub 完成转移。
 - 新仓库 Pages 保留 GitHub Actions 来源、brivya.com 绑定和 Enforce HTTPS。原 CI 成功记录已随仓库保留。
