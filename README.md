@@ -26,6 +26,12 @@
 
 ## 官网文档
 
-文档中心 `/docs/` 提供快速开始、架构、安全、SDK、适配器、扩展、Restaurant 示例、版本与贡献说明。编辑 `scripts/docs.py` 中的内容并运行 `python3 scripts/docs.py`，生成已提交的 `docs/**/index.html` 与 sitemap。不要直接编辑生成页；CI 检查生成结果是否一致。
+中文文档位于 `/docs/`，英文文档位于 `/en/docs/`，均提供快速开始、架构、安全、SDK、适配器、扩展、Restaurant 示例、版本与贡献说明。中文内容维护于 `scripts/docs.py`，英文内容维护于 `scripts/docs_en.py`；运行 `python3 scripts/docs.py` 生成已提交的双语内页与 sitemap。不要直接编辑生成页；CI 检查生成结果是否一致。
 
 检查器验证所有文档页的内部链接、跨页锚点、canonical URL 和 sitemap 覆盖；构建只复制公开 HTML 和静态资源。首页主要入口跳转到官网文档，源码与实际贡献渠道仍链接 GitHub。
+
+## 语言与业务动画
+
+中文首页为 `/`，英文首页为 `/en/`。中文首页是维护源，英文文案位于 `scripts/home_en.py`；运行 `python3 scripts/home_en.py` 生成英文首页。默认语言为中文，切换器使用当前页的对应路由；主动选择保存在本地浏览器中。直接打开文档 URL 时尊重链接语言。语言配置位于 `assets/language.js`，不使用第三方翻译服务。
+
+首页业务价值演示使用原生 SVG/CSS 和 JavaScript，在四个阶段说明发现、结构化请求、治理、执行与审计。文案维护于 `assets/business-animation.js`；首屏静态文案同时维护在首页及英文翻译表中。动画支持暂停、手动选段、不可见时停止，以及系统减少动效设置。它不是在线交易演示，不发出业务 API 请求。

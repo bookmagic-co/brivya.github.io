@@ -27,9 +27,11 @@ jobs:
       - name: Verify generated documentation
         run: |
           python3 scripts/docs.py
-          git diff --exit-code -- docs sitemap.xml
+          python3 scripts/home_en.py
+          git diff --exit-code -- docs en sitemap.xml
       - name: Validate JavaScript
-        run: node --check assets/site.js
+        run: |
+          for file in assets/*.js; do node --check "$file"; done
       - name: Build public artifact
         run: python3 scripts/build.py
       - name: Upload Pages artifact

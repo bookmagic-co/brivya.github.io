@@ -9,12 +9,14 @@ target = ROOT / '_site'
 target.mkdir(exist_ok=True)
 for name in ['index.html', 'CNAME', '.nojekyll', 'robots.txt', 'sitemap.xml']:
     shutil.copy2(ROOT / name, target / name)
-for name in ['style.css', 'docs.css', 'site.js', 'favicon.svg']:
+asset_names = ['style.css', 'docs.css', 'site.js', 'favicon.svg', 'language.css', 'language.js', 'business-animation.css', 'business-animation.js']
+for name in asset_names:
     (target / 'assets').mkdir(exist_ok=True)
     shutil.copy2(ROOT / 'assets' / name, target / 'assets' / name)
 expected = {'index.html', 'CNAME', '.nojekyll', 'robots.txt', 'sitemap.xml',
             'assets/style.css', 'assets/docs.css', 'assets/site.js', 'assets/favicon.svg'}
-for source in (ROOT / 'docs').rglob('*.html'):
+expected.update('assets/' + name for name in asset_names)
+for source in [*(ROOT / 'docs').rglob('*.html'), *(ROOT / 'en').rglob('*.html')]:
     relative = source.relative_to(ROOT)
     output = target / relative
     output.parent.mkdir(parents=True, exist_ok=True)

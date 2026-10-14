@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://brivya.com/</loc></url>
+  <url><loc>https://brivya.com/en/</loc></url>
   <url><loc>https://brivya.com/docs/</loc></url>
   <url><loc>https://brivya.com/docs/quickstart/</loc></url>
   <url><loc>https://brivya.com/docs/architecture/</loc></url>
@@ -10,4 +11,13 @@
   <url><loc>https://brivya.com/docs/restaurant/</loc></url>
   <url><loc>https://brivya.com/docs/releases/</loc></url>
   <url><loc>https://brivya.com/docs/contributing/</loc></url>
+  <url><loc>https://brivya.com/en/docs/</loc></url>
+  <url><loc>https://brivya.com/en/docs/quickstart/</loc></url>
+  <url><loc>https://brivya.com/en/docs/architecture/</loc></url>
+  <url><loc>https://brivya.com/en/docs/sdk/</loc></url>
+  <url><loc>https://brivya.com/en/docs/adapters/</loc></url>
+  <url><loc>https://brivya.com/en/docs/extensions/</loc></url>
+  <url><loc>https://brivya.com/en/docs/restaurant/</loc></url>
+  <url><loc>https://brivya.com/en/docs/releases/</loc></url>
+  <url><loc>https://brivya.com/en/docs/contributing/</loc></url>
 </urlset>
