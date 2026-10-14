@@ -1,0 +1,150 @@
+{
+  "format_version": 1,
+  "name": "Brivya documentation",
+  "site_url": "https://brivya.com/",
+  "framework_version": "0.1.0-alpha.1",
+  "default_language": "zh",
+  "languages": [
+    "zh",
+    "en"
+  ],
+  "kind": "documentation",
+  "business_execution_endpoints": [],
+  "scope": "Documentation discovery only; not an authorization or business execution service.",
+  "llms_urls": {
+    "zh": "https://brivya.com/llms.txt",
+    "en": "https://brivya.com/en/llms.txt"
+  },
+  "full_text_urls": {
+    "zh": "https://brivya.com/llms-full.txt",
+    "en": "https://brivya.com/en/llms-full.txt"
+  },
+  "documents": [
+    {
+      "language": "zh",
+      "title": "文档中心",
+      "summary": "从业务契约到多平台接入，找到构建 Business Agent 的下一步。",
+      "html_url": "https://brivya.com/docs/",
+      "markdown_url": "https://brivya.com/docs/index.md"
+    },
+    {
+      "language": "zh",
+      "title": "快速开始",
+      "summary": "用 CLI 创建第一份业务契约，验证本地开发配置。",
+      "html_url": "https://brivya.com/docs/quickstart/",
+      "markdown_url": "https://brivya.com/docs/quickstart/index.md"
+    },
+    {
+      "language": "zh",
+      "title": "架构与安全",
+      "summary": "一份业务真相，多个平台投影；每一次变更都经过同一治理路径。",
+      "html_url": "https://brivya.com/docs/architecture/",
+      "markdown_url": "https://brivya.com/docs/architecture/index.md"
+    },
+    {
+      "language": "zh",
+      "title": "TypeScript SDK",
+      "summary": "复用公开业务类型、Manifest 校验器与 canonical 运行时。",
+      "html_url": "https://brivya.com/docs/sdk/",
+      "markdown_url": "https://brivya.com/docs/sdk/index.md"
+    },
+    {
+      "language": "zh",
+      "title": "协议与平台适配",
+      "summary": "REST 和 MCP 共享运行时，平台分发配置复用 canonical 业务语义。",
+      "html_url": "https://brivya.com/docs/adapters/",
+      "markdown_url": "https://brivya.com/docs/adapters/index.md"
+    },
+    {
+      "language": "zh",
+      "title": "Extension Host",
+      "summary": "明确声明权限，通过受限 Host API 扩展业务能力。",
+      "html_url": "https://brivya.com/docs/extensions/",
+      "markdown_url": "https://brivya.com/docs/extensions/index.md"
+    },
+    {
+      "language": "zh",
+      "title": "Restaurant 示例",
+      "summary": "通过确定性测试理解发现、预订、订单和支付请求的完整业务链路。",
+      "html_url": "https://brivya.com/docs/restaurant/",
+      "markdown_url": "https://brivya.com/docs/restaurant/index.md"
+    },
+    {
+      "language": "zh",
+      "title": "版本与包",
+      "summary": "了解当前 Alpha 的公开模块、安装方式与稳定性边界。",
+      "html_url": "https://brivya.com/docs/releases/",
+      "markdown_url": "https://brivya.com/docs/releases/index.md"
+    },
+    {
+      "language": "zh",
+      "title": "参与贡献与安全",
+      "summary": "帮助完善业务契约、开发工具和多平台一致性。",
+      "html_url": "https://brivya.com/docs/contributing/",
+      "markdown_url": "https://brivya.com/docs/contributing/index.md"
+    },
+    {
+      "language": "en",
+      "title": "Documentation",
+      "summary": "Build a Business Agent, from its first contract to governed execution and platform integration.",
+      "html_url": "https://brivya.com/en/docs/",
+      "markdown_url": "https://brivya.com/en/docs/index.md"
+    },
+    {
+      "language": "en",
+      "title": "Quick Start",
+      "summary": "Create your first business contract and validate the local development configuration.",
+      "html_url": "https://brivya.com/en/docs/quickstart/",
+      "markdown_url": "https://brivya.com/en/docs/quickstart/index.md"
+    },
+    {
+      "language": "en",
+      "title": "Architecture and safety",
+      "summary": "One business truth, many projections. Every mutation follows the same governed execution path.",
+      "html_url": "https://brivya.com/en/docs/architecture/",
+      "markdown_url": "https://brivya.com/en/docs/architecture/index.md"
+    },
+    {
+      "language": "en",
+      "title": "TypeScript SDK",
+      "summary": "Reuse public business types, Manifest validation and the canonical runtime.",
+      "html_url": "https://brivya.com/en/docs/sdk/",
+      "markdown_url": "https://brivya.com/en/docs/sdk/index.md"
+    },
+    {
+      "language": "en",
+      "title": "Protocols and platforms",
+      "summary": "REST and MCP share the runtime. Distribution profiles reuse canonical business semantics.",
+      "html_url": "https://brivya.com/en/docs/adapters/",
+      "markdown_url": "https://brivya.com/en/docs/adapters/index.md"
+    },
+    {
+      "language": "en",
+      "title": "Extension Host",
+      "summary": "Declare permissions explicitly and extend capabilities through a scoped Host API.",
+      "html_url": "https://brivya.com/en/docs/extensions/",
+      "markdown_url": "https://brivya.com/en/docs/extensions/index.md"
+    },
+    {
+      "language": "en",
+      "title": "Restaurant reference",
+      "summary": "Follow discovery, reservations, orders and payment requests through deterministic contract tests.",
+      "html_url": "https://brivya.com/en/docs/restaurant/",
+      "markdown_url": "https://brivya.com/en/docs/restaurant/index.md"
+    },
+    {
+      "language": "en",
+      "title": "Versions and packages",
+      "summary": "Understand the public Alpha modules, installation and stability boundaries.",
+      "html_url": "https://brivya.com/en/docs/releases/",
+      "markdown_url": "https://brivya.com/en/docs/releases/index.md"
+    },
+    {
+      "language": "en",
+      "title": "Contributing and security",
+      "summary": "Help improve business contracts, developer tools and platform conformance.",
+      "html_url": "https://brivya.com/en/docs/contributing/",
+      "markdown_url": "https://brivya.com/en/docs/contributing/index.md"
+    }
+  ]
+}

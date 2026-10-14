@@ -1,0 +1,28 @@
+# Brivya
+
+> Business-to-Agent infrastructure · v0.1.0-alpha.1
+
+This website documents the open Brivya framework. It is not a callable production Business Agent. No business execution, OAuth or tool endpoint is advertised here. APIs are pre-stable. Discovery does not grant authorization.
+
+## Documentation
+
+- [Documentation](https://brivya.com/en/docs/index.md): Build a Business Agent, from its first contract to governed execution and platform integration.
+- [Quick Start](https://brivya.com/en/docs/quickstart/index.md): Create your first business contract and validate the local development configuration.
+- [Architecture and safety](https://brivya.com/en/docs/architecture/index.md): One business truth, many projections. Every mutation follows the same governed execution path.
+- [TypeScript SDK](https://brivya.com/en/docs/sdk/index.md): Reuse public business types, Manifest validation and the canonical runtime.
+- [Protocols and platforms](https://brivya.com/en/docs/adapters/index.md): REST and MCP share the runtime. Distribution profiles reuse canonical business semantics.
+- [Extension Host](https://brivya.com/en/docs/extensions/index.md): Declare permissions explicitly and extend capabilities through a scoped Host API.
+- [Restaurant reference](https://brivya.com/en/docs/restaurant/index.md): Follow discovery, reservations, orders and payment requests through deterministic contract tests.
+- [Versions and packages](https://brivya.com/en/docs/releases/index.md): Understand the public Alpha modules, installation and stability boundaries.
+- [Contributing and security](https://brivya.com/en/docs/contributing/index.md): Help improve business contracts, developer tools and platform conformance.
+
+## Complete text
+
+- [All documentation](https://brivya.com/en/llms-full.txt)
+
+## Languages and source
+
+- [中文](https://brivya.com/llms.txt)
+- [English](https://brivya.com/en/llms.txt)
+- [Machine-readable index](https://brivya.com/ai/index.json)
+- [Implementation source](https://github.com/brivya/brivya)

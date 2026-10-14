@@ -28,7 +28,8 @@ jobs:
         run: |
           python3 scripts/docs.py
           python3 scripts/home_en.py
-          git diff --exit-code -- docs en sitemap.xml
+          python3 scripts/agent_docs.py
+          git diff --exit-code -- docs en sitemap.xml llms.txt llms-full.txt ai
       - name: Validate JavaScript
         run: |
           for file in assets/*.js; do node --check "$file"; done

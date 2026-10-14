@@ -75,6 +75,8 @@ class EnglishHome(HTMLParser):
             if key == 'href' and not language_link and attrs.get('rel') != 'alternate':
                 if value == '/': attrs[key] = '/en/'
                 elif value.startswith('/docs/'): attrs[key] = '/en' + value
+                elif value == '/llms.txt': attrs[key] = '/en/llms.txt'
+            if key == 'href' and value == '/llms.txt': attrs[key] = '/en/llms.txt'
         if language_link:
             attrs.pop('aria-current', None)
             if language_link == 'en': attrs['aria-current'] = 'true'

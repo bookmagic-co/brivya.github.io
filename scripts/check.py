@@ -4,6 +4,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from urllib.parse import urlsplit, unquote
 import sys
+import json
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -38,7 +39,7 @@ class Page(HTMLParser):
             self.canonical.append(attrs.get('href'))
         if tag == 'meta' and attrs.get('property') == 'og:url':
             self.og_urls.append(attrs.get('content'))
-        if tag == 'link' and attrs.get('rel') == 'alternate':
+        if tag == 'link' and attrs.get('rel') == 'alternate' and attrs.get('hreflang'):
             key = attrs.get('hreflang')
             if key in self.alternates:
                 raise ValueError('重复 hreflang')
@@ -96,6 +97,23 @@ def check(root=ROOT):
     if {url.text for url in urls} != {page.canonical[0] for page in pages.values()} or len(urls) != len(pages):
         raise ValueError('sitemap 与全部页面 URL 不一致')
     ET.parse(root / 'assets/favicon.svg')
+    metadata = json.loads((root / 'ai/index.json').read_text())
+    docs = metadata['documents']
+    expected_docs = {url for url in canonical_urls if '/docs/' in url}
+    if {doc['html_url'] for doc in docs} != expected_docs or len(docs) != len(expected_docs):
+        raise ValueError('AI 文档索引与 HTML 页面不一致')
+    if metadata['kind'] != 'documentation' or metadata['business_execution_endpoints']:
+        raise ValueError('文档站不应声明业务执行端点')
+    for language in ['zh', 'en']:
+        prefix = 'en/' if language == 'en' else ''
+        listing = (root / prefix / 'llms.txt').read_text()
+        full = (root / prefix / 'llms-full.txt').read_text()
+        for doc in [d for d in docs if d['language'] == language]:
+            text = (root / urlsplit(doc['markdown_url']).path.lstrip('/')).read_text()
+            if doc['markdown_url'] not in listing or text not in full:
+                raise ValueError('AI 全文或索引缺失文档')
+            if 'Canonical: ' + doc['html_url'] not in text:
+                raise ValueError('Markdown canonical 不一致')
     print(f'PASS: {len(pages)} 个页面、跨页资源与锚点、标题、正式 URL 和 sitemap')
 
 

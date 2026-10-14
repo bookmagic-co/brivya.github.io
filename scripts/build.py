@@ -16,7 +16,7 @@ for name in asset_names:
 expected = {'index.html', 'CNAME', '.nojekyll', 'robots.txt', 'sitemap.xml',
             'assets/style.css', 'assets/docs.css', 'assets/site.js', 'assets/favicon.svg'}
 expected.update('assets/' + name for name in asset_names)
-for source in [*(ROOT / 'docs').rglob('*.html'), *(ROOT / 'en').rglob('*.html')]:
+for source in [*(ROOT / 'docs').rglob('*.html'), *(ROOT / 'en').rglob('*.html'), *(ROOT / 'docs').rglob('*.md'), *(ROOT / 'en').rglob('*.md'), ROOT / 'llms.txt', ROOT / 'llms-full.txt', ROOT / 'en/llms.txt', ROOT / 'en/llms-full.txt', ROOT / 'ai/index.json']:
     relative = source.relative_to(ROOT)
     output = target / relative
     output.parent.mkdir(parents=True, exist_ok=True)

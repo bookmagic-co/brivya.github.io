@@ -1,0 +1,507 @@
+# Brivya
+
+> Business-to-Agent infrastructure · v0.1.0-alpha.1
+
+本站提供 Brivya 开源框架文档，不是可调用的生产 Business Agent。本站未公布业务执行、OAuth 或工具调用端点。公开 API 尚未稳定，发现能力不等于获得授权。
+
+
+---
+
+# 文档中心
+
+从业务契约到多平台接入，找到构建 Business Agent 的下一步。
+
+Canonical: https://brivya.com/docs/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## 从这里开始
+
+Brivya 是开源 Business-to-Agent 基础设施。它将真实业务能力定义为类型化契约，通过同一受治理运行时连接 REST、MCP 与平台分发生态。
+
+
+
+如果第一次使用 Brivya，先完成快速开始，再阅读架构和 Restaurant 示例。已有 TypeScript 项目可以从 SDK 与协议适配器开始。
+
+## 开发路线
+
+- [快速开始](https://brivya.com/docs/quickstart/)：安装 CLI，生成并验证业务 Manifest。
+- [架构与安全](https://brivya.com/docs/architecture/)：理解业务契约、运行时和平台投影。
+- [TypeScript SDK](https://brivya.com/docs/sdk/)：使用 canonical 类型和运行时。
+- [协议与平台适配](https://brivya.com/docs/adapters/)：通过 REST、MCP 和参考分发配置接入生态。
+- [Restaurant 示例](https://brivya.com/docs/restaurant/)：运行已有的端到端业务契约测试。
+
+## 当前版本
+
+当前公开版本为 `0.1.0-alpha.1`，14 个 npm 包已发布，使用 `next` dist-tag。公开 API 仍处于预稳定阶段。本文档以当前 Alpha 基线为准，不代表托管服务或第三方平台发布承诺。
+
+
+
+[查看包列表与版本说明 →](https://brivya.com/docs/releases/)
+
+
+---
+
+# 快速开始
+
+用 CLI 创建第一份业务契约，验证本地开发配置。
+
+Canonical: https://brivya.com/docs/quickstart/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## 环境准备
+
+需要 Node.js 20 或更高版本与 npm。CLI 的本地流程无需云账号、LLM API Key 或数据库。
+
+
+
+```
+node --version
+npm --version
+npm install -g @brivya/cli@0.1.0-alpha.1
+```
+
+## 创建业务契约
+
+```
+mkdir my-business
+cd my-business
+brivya init
+brivya validate
+brivya inspect
+brivya dev
+```
+
+
+
+`init` 创建 `business.agent.yaml`；`validate` 校验 Manifest；`inspect` 展示解析后的业务定义；`dev` 验证并展示本地配置。
+
+
+
+初始化生成的是业务契约骨架，尚未连接实际业务系统。CLI dev 不启动 HTTP 服务，也不代替 BusinessRuntime 执行业务。
+
+## 编辑与观察
+
+在生成的 Manifest 中维护业务标识、能力声明、协议和安全要求。先运行 `brivya inspect` 了解骨架，不要跳过校验。要观察文件变化，使用：
+
+
+
+```
+brivya dev business.agent.yaml --watch
+```
+
+
+
+也可以向 validate、inspect 和 dev 显式传入 Manifest 文件路径。已有文件不会被 init 默默覆盖。
+
+## 连接真实能力
+
+下一步在应用内使用 SDK 注册能力契约、配置授权与策略、提供 Connector，并接入协议适配器。发现业务能力不等于获得变更权限。
+
+
+
+[继续阅读 SDK](https://brivya.com/docs/sdk/)，或通过 [Restaurant 示例](https://brivya.com/docs/restaurant/) 理解完整执行路径。
+
+
+---
+
+# 架构与安全
+
+一份业务真相，多个平台投影；每一次变更都经过同一治理路径。
+
+Canonical: https://brivya.com/docs/architecture/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## 分层模型
+
+AI 平台与 Agent Hosts
+
+↓
+
+DistributionProfile · REST / MCP
+
+↓
+
+Canonical Business Agent · BusinessRuntime
+
+↓
+
+Connector · ERP / CRM / POS / Business APIs
+
+
+
+
+
+Manifest、资源、能力与事件定义 canonical 业务契约。协议适配器负责调用投影，分发配置负责平台发现、交互与打包。业务权威保持在契约和运行时中。
+
+## 变更执行链
+
+```
+校验 → 授权 → 策略 → 必要的审批
+→ 幂等 → Connector → 事务 / 审计 / 事件
+```
+
+
+
+BusinessRuntime 执行业务安全语义。LLM 不直接修改业务数据库；适配器不能直接调用 Connector 来绕过授权、策略或审批。
+
+## 身份与授权
+
+- Agent Identity 不等于 Authorization：识别调用方不代表允许执行所有能力。
+- Discovery 不等于 Authorization：Manifest 描述能力，不能授予变更权限。
+- Platform Identity 是身份上下文，仍需经过业务授权。
+- UI Confirmation 不等于 ApprovalRecord：前端确认不能替代可信审批证据。
+
+
+
+高风险动作的审批、权限、幂等与审计语义不能被协议或体验投影削弱。
+
+## 核心模块
+
+| 模块 | 职责 | 
+|  --- | --- |
+| Core / Manifest | 类型化业务契约、解析与校验 | 
+| Policy / Runtime | 策略与受治理执行 | 
+| Experience / Distribution | 统一交互语义与平台投影 | 
+| SDK / CLI | 开发接口与本地契约工具 | 
+| Adapters / Connectors | 协议入口与业务系统边界 |
+
+
+---
+
+# TypeScript SDK
+
+复用公开业务类型、Manifest 校验器与 canonical 运行时。
+
+Canonical: https://brivya.com/docs/sdk/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## 安装
+
+```
+npm install @brivya/sdk@0.1.0-alpha.1
+```
+
+
+
+SDK 是 Core、Manifest、Policy 与 Runtime 的公开接口门面，不创建第二套授权或运行时真相。
+
+## 解析和校验 Manifest
+
+以下示例读取由 CLI init 生成的 Manifest，并运行同一 canonical 解析与校验逻辑：
+
+
+
+```
+import { readFileSync } from "node:fs";
+import { loadBusinessAgentManifest } from "@brivya/sdk";
+
+const source = readFileSync("business.agent.yaml", "utf8");
+const agent = loadBusinessAgentManifest(source);
+console.log(agent.metadata.id);
+```
+
+
+
+解析或校验失败时应处理错误，不要将无效 Manifest 继续用于业务执行。
+
+## 运行时与类型
+
+```
+import {
+  BusinessRuntime,
+  CapabilityRegistry,
+  runtime,
+  type ActionRequest,
+  type CapabilityContract,
+  type Principal,
+  type Delegation,
+} from "@brivya/sdk";
+```
+
+
+
+BusinessRuntime 和 CapabilityRegistry 指向 canonical 实现。实际配置需要能力注册、Connector、授权上下文和相关运行时依赖；仅导入 SDK 不会创建可执行业务服务。
+
+## 应用集成顺序
+
+- 定义能力输入、输出与业务安全要求。
+- 通过 CapabilityRegistry 注册能力契约。
+- 提供真实业务 Connector 与所需的策略、审批、幂等和审计实现。
+- 由可信服务端构造身份与委托上下文。
+- 使用 BusinessRuntime 执行，或通过 REST / MCP 适配器调用同一运行时。
+
+
+
+参考 [Restaurant 示例](https://brivya.com/docs/restaurant/) 学习注册能力和执行测试；参考 [适配器指南](https://brivya.com/docs/adapters/) 连接协议入口。
+
+
+---
+
+# 协议与平台适配
+
+REST 和 MCP 共享运行时，平台分发配置复用 canonical 业务语义。
+
+Canonical: https://brivya.com/docs/adapters/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## REST 调用边界
+
+REST 适配器提供与 HTTP 框架无关的执行投影：
+
+
+
+```
+POST /v0alpha1/capabilities/{capability}/execute
+
+{
+  "input": {},
+  "preconditions": {}
+}
+```
+
+
+
+协议元数据通过 X-Brivya-Capability-Version、X-Request-Id、X-Correlation-Id、X-Causation-Id 与 Idempotency-Key 等头传递。请求体不能声明可信身份或审批状态。
+
+
+
+宿主 HTTP 层验证会话或认证信息，并传入可信 RestSecurityContext；适配器构造 ActionRequest 后调用 BusinessRuntime。
+
+## MCP 工具投影
+
+能力 `order.create@0.1.0` 投影为工具 `brivya.order.create.v0.1.0`，能力输入输出 JSON Schema 被传递给 MCP SDK。
+
+
+
+宿主 transport/auth 层提供可信 McpContextResolver，映射已验证的会话身份、委托、审批与关联信息。工具参数仅为业务输入；MCP annotations 只是提示，不是授权。
+
+
+
+默认上下文只包含不可信 Agent actor。缺少可信解析器时，受保护能力在 BusinessRuntime 中拒绝执行。
+
+## WorkBuddy 与 WeChat AI
+
+| 参考投影 | 生成内容 | 
+|  --- | --- |
+| WorkBuddy | connector-meta.json、mcp.json、skills/business/SKILL.md | 
+| WeChat AI | SKILL.md、mcp.json、runtime-bridge.json、components 与注册补丁 | 
+
+
+
+这些是参考打包与一致性基线。生产发布仍需重新核对平台官方要求、资格与审核流程；不保证第三方字段和接口永远稳定。
+
+## 适配前检查
+
+- 投影保留输入输出 Schema、风险与权限要求。
+- 高风险动作保留 canonical 审批语义。
+- 幂等与审计不会被协议分支削弱。
+- 客户端身份与 UI 确认不被提升为可信授权证据。
+
+
+
+统一交互语义由 SemanticExperience 描述，再交给平台 renderer 呈现；业务动作仍绑定 canonical Capability ID。
+
+
+---
+
+# Extension Host
+
+明确声明权限，通过受限 Host API 扩展业务能力。
+
+Canonical: https://brivya.com/docs/extensions/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## Alpha 基线
+
+Extension Host 包含 Extension Manifest / Package、权限授权、权限扩张检测、安装计划、Registry Client 契约及 worker / remote 执行边界。
+
+
+
+这些是框架层契约与基线能力，不代表已有公开托管 Registry 或第三方扩展市场。
+
+## 有效权限
+
+```
+请求权限 ∩ 租户策略 ∩ 管理员授权 = 有效权限
+```
+
+
+
+扩展声明权限并不自动获得权限。新版本扩大权限时，需要重新批准；宿主只授予最终交集允许的能力。
+
+## 执行与凭据边界
+
+```
+Extension → Host API
+→ canonical Brivya Runtime / governed platform service
+```
+
+
+
+Host API 按权限限制访问，凭据通过不透明 secret binding 引用。不存在原始 secret-read Host API，也不应把凭据明文交给扩展。
+
+## 当前限制
+
+Phase 1 使用 worker 与 remote 执行模型。WASM 延后，任意第三方进程内执行不属于当前基线。上线前需验证宿主隔离、授权和外部网络策略。
+
+
+
+[回到运行时安全模型 →](https://brivya.com/docs/architecture/)
+
+
+---
+
+# Restaurant 示例
+
+通过确定性测试理解发现、预订、订单和支付请求的完整业务链路。
+
+Canonical: https://brivya.com/docs/restaurant/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## 示例能力
+
+| Capability | 业务步骤 | 
+|  --- | --- |
+| menu.search | 搜索菜单 | 
+| availability.check | 检查可用性 | 
+| reservation.create | 创建预订 | 
+| order.create | 创建订单 | 
+| payment.request | 请求支付 | 
+
+
+
+REST 与 MCP 执行同一能力契约并共享 BusinessRuntime。示例使用 mock Connector，不依赖特定 LLM 或真实支付 SDK。
+
+## 获取并运行
+
+```
+git clone https://github.com/brivya/brivya.git
+cd brivya
+npm install --ignore-scripts --no-audit --no-fund
+npm run ci
+```
+
+
+
+当前仓库没有提交 lockfile，因此使用与 CI 一致的 npm install。根命令完成构建、类型检查及测试，包含 Restaurant RST-001..RST-024 契约矩阵。
+
+## 只运行示例测试
+
+```
+npm run build
+node --test examples/restaurant/dist/test/*.test.js
+```
+
+
+
+先构建所有工作区以准备跨包依赖，再运行已编译的示例测试。测试使用确定性数据，覆盖业务执行、安全拒绝和审计等行为。
+
+## 阅读路径
+
+- `examples/restaurant/src/manifest.ts`：业务身份与能力声明。
+- `examples/restaurant/src/capabilities.ts`：业务能力定义。
+- `examples/restaurant/test/`：端到端验证证据。
+- `connectors/mock/`：模拟业务系统连接。
+
+
+
+payment.request 表示业务支付请求，不表示示例已经接通真实支付渠道。Manifest 中的 bootstrap URL 是示例业务身份，不是官网提供的在线演示服务。
+
+
+---
+
+# 版本与包
+
+了解当前 Alpha 的公开模块、安装方式与稳定性边界。
+
+Canonical: https://brivya.com/docs/releases/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## v0.1.0-alpha.1
+
+首个公开 Alpha 于 2026 年 10 月 3 日发布。14 个 npm 包版本统一为 `0.1.0-alpha.1`，使用 `next` dist-tag。API 尚未稳定，建议显式固定版本。
+
+
+
+```
+npm install @brivya/sdk@0.1.0-alpha.1
+npm install -g @brivya/cli@0.1.0-alpha.1
+```
+
+## 公开包列表
+
+- `@brivya/core`
+- `@brivya/manifest`
+- `@brivya/policy`
+- `@brivya/runtime`
+- `@brivya/experience`
+- `@brivya/distribution`
+- `@brivya/extensions`
+- `@brivya/sdk`
+- `@brivya/cli`
+- `@brivya/adapter-rest`
+- `@brivya/adapter-mcp`
+- `@brivya/adapter-workbuddy`
+- `@brivya/adapter-wechat-ai`
+- `@brivya/connector-mock`
+
+## 能力与限制
+
+当前基线包括类型化契约、受治理运行时、REST / MCP、平台参考投影、CLI / SDK、Restaurant E2E 和 Extension Host。根工作区与 Restaurant 示例未作为公共 npm 包发布。
+
+
+
+托管 Runtime、Registry、企业身份或正式平台自动发布不由此版本承诺。npm OIDC 迁移是发布治理工作，不是使用官网或安装公开包的前置条件。
+
+## 升级前检查
+
+- 阅读版本说明，确认 API 与 Manifest 兼容性。
+- 先运行业务契约、权限、审批、幂等和适配器测试。
+- 所有 canonical 包保持版本一致。
+- 不要将 Alpha 变更视为稳定兼容保证。
+
+
+---
+
+# 参与贡献与安全
+
+帮助完善业务契约、开发工具和多平台一致性。
+
+Canonical: https://brivya.com/docs/contributing/
+Version: 0.1.0-alpha.1
+Language: zh
+
+## 贡献路径
+
+欢迎通过源码仓的 issue 与 Pull Request 参与。较大的功能先讨论问题、范围与兼容性；实现应保持协议中立、模型中立、类型化能力和明确策略边界。
+
+
+- 创建 feature 分支并聚焦单一改动。
+- 实现行为变更时补充测试和公开文档。
+- 运行 npm run ci 与相关发布就绪检查。
+- 提交 PR，说明问题、行为、验证和兼容性影响。
+
+## 安全报告
+
+潜在漏洞应按照公开仓 SECURITY.md 的渠道私下报告。不要在公开 issue 中贴出凭据、客户数据或敏感漏洞细节。
+
+
+
+[查看安全报告渠道 ↗](https://github.com/brivya/brivya/blob/main/SECURITY.md)
+
+## 许可证与品牌
+
+公开框架采用 Apache-2.0 许可证。Brivya 名称与品牌受独立商标政策约束。使用框架不意味着取得第三方平台或 Brivya 品牌的额外授权。
+
+
+
+[查看许可证原文 ↗](https://github.com/brivya/brivya/blob/main/LICENSE)
+
